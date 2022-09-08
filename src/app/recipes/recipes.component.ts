@@ -12,4 +12,8 @@ export class RecipesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onNavigate(feature: string) {
+
+  }
+
 }
