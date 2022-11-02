@@ -8,24 +8,26 @@ import {Subject} from "rxjs";
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      'Spaghetti',
-      'Spaghetti Desc',
-      'https://cdn-icons-png.flaticon.com/512/4465/4465494.png',
-      [
-        new Ingredient('Tomatoes', 3),
-        new Ingredient('Meat', 2)
-      ]),
-    new Recipe(
-      'Hamburger',
-      'Hamburger Desc',
-      'https://cdn-icons-png.flaticon.com/512/3075/3075977.png',
-      [
-        new Ingredient('Buns', 1),
-        new Ingredient('Pickles', 2)
-      ]),
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'Spaghetti',
+  //     'Spaghetti Desc',
+  //     'https://cdn-icons-png.flaticon.com/512/4465/4465494.png',
+  //     [
+  //       new Ingredient('Tomatoes', 3),
+  //       new Ingredient('Meat', 2)
+  //     ]),
+  //   new Recipe(
+  //     'Hamburger',
+  //     'Hamburger Desc',
+  //     'https://cdn-icons-png.flaticon.com/512/3075/3075977.png',
+  //     [
+  //       new Ingredient('Buns', 1),
+  //       new Ingredient('Pickles', 2)
+  //     ]),
+  // ];
+
+  private recipes: Recipe[] = [];
 
   constructor(private shoppingListService: ShoppingListService) {
   }
@@ -54,6 +56,11 @@ export class RecipeService {
 
   deleteRecipe(index: number) {
     this.recipes.splice(index, 1);
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
     this.recipesChanged.next(this.recipes.slice());
   }
 }
